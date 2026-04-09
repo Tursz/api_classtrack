@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('leaner_id')->index()->constrained('leaners');
+            $table->foreignId('learner_id')->index()->constrained('learners');
             $table->date('date');
             $table->enum('status',['pending','concluded']);
             $table->string('method');
