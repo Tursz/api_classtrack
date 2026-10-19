@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('learner_id')->index()->constrained('learners');
+            $table->foreignId('learner_id')->index()->constrained('learners')->cascadeOnDelete();
             $table->date('date');
+            $table->float('value');
             $table->enum('status',['pending','concluded']);
             $table->string('method');
             $table->timestamps();

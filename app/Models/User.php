@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'pin_code',
+        'pin_code_expires_at'
     ];
 
     /**
@@ -33,6 +35,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'pin_code',
+        'pin_code_expires_at'
     ];
 
     /**
@@ -48,18 +52,23 @@ class User extends Authenticatable
         ];
     }
 
-    public function plan(): HasMany
+    public function plans(): HasMany
     {
         return $this->hasMany(Plan::class);
     }
 
-    public function learner(): HasMany
+    public function learners(): HasMany
     {
         return $this->hasMany(Learner::class);
     }
 
-    public function group(): HasMany
+    public function groups(): HasMany
     {
         return $this->hasMany(Group::class);
+    }
+
+    public function isolatedClasses()
+    {
+        return $this->hasMany(IsolatedClass::class);
     }
 }

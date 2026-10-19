@@ -19,12 +19,12 @@ class Group extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function groupLesson(): HasMany
+    public function groupLessons(): HasMany
     {
         return $this->hasMany(GroupLesson::class);
     }
 
-    public function classroom(): HasMany
+    public function classrooms(): HasMany
     {
         return $this->hasMany(Classroom::class);
     }

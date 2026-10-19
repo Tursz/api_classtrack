@@ -12,6 +12,7 @@ class Payment extends Model
         'date',
         'status',
         'method',
+        'value',
     ];
 
     public function learner(): BelongsTo

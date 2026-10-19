@@ -22,17 +22,17 @@ class Learner extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function lesson(): HasMany
+    public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class);
     }
 
-    public function payment(): HasMany
+    public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
     }
 
-    public function classroom(): HasMany
+    public function classrooms(): HasMany
     {
         return $this->hasMany(Classroom::class);
     }

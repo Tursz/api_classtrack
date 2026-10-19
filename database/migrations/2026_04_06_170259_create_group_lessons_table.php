@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('group_lessons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->index()->constrained('groups');
+            $table->foreignId('group_id')->index()->constrained('groups')->cascadeOnDelete();
             $table->date('date');
             $table->time('start_at');
             $table->time('end_at');
