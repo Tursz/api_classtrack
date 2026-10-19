@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('name');
             $table->date('date');
             $table->text('observation')->nullable();
-            $table->float('value');
+            $table->float('value')->nullable();
             $table->timestamps();
         });
     }

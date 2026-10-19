@@ -28,7 +28,7 @@ class IsolatedClassController extends Controller
             'name' => ['required', 'max:255'],
             'date' => ['required', 'date'],
             'observation' => ['nullable'],
-            'value' => ['required', 'numeric'],
+            'value' => ['numeric'],
         ]);
 
         $isolatedClass = DB::transaction(function () use ($request) {
