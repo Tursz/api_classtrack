@@ -26,7 +26,7 @@ class PlanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, User $user): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'title' => ['required', 'max:255'],
@@ -40,7 +40,7 @@ class PlanController extends Controller
         ]);
 
         $plan = Plan::create([
-            'user_id' => $user->id,
+            'user_id' => $request->user()->id,
             'title' => $request->title,
             'description' => $request->description,
             'value' => $request->value,
