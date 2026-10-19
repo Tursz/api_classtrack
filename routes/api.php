@@ -17,7 +17,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/user', [UserController::class, 'store']);
 Route::post('/register', [UserController::class, 'store']);
 Route::post('/verify-pin', [UserController::class, 'verifyPin']);
 Route::post('/resend-pin', [UserController::class, 'resendPin']);
