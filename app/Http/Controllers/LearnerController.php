@@ -56,7 +56,7 @@ class LearnerController extends Controller
     public function show(Request $request, Learner $learner): Response|JsonResponse
     {
         if (!$learner) {
-            return response()->json(['message' => 'Aluno não encontrado'])->noCotent();
+            return response()->json(['message' => 'Aluno não encontrado'], Response::HTTP_NO_CONTENT);
         }
         return response()->json(['message' => 'Aluno encontrado', 'data' => $learner], Response::HTTP_OK);
     }
@@ -98,15 +98,14 @@ class LearnerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Learner $learner): JsonResponse
+    public function destroy(Request $request, Learner $learner)
     {
         if (!$request->user()->id === $learner->user_id) {
             return response()->json(['message' => 'O aluno não pertence a esse professor'], Response::HTTP_UNAUTHORIZED);
         }
 
         $learner->delete();
-        $learner->save();
 
-        return response()->json(['message' => 'Aluno excluído com sucesso'])->noContent();
+        return response()->json(['message' => 'Aluno excluído com sucesso'], Response::HTTP_NO_CONTENT);
     }
 }
