@@ -28,7 +28,13 @@ class IsolatedClassController extends Controller
             'name' => ['required', 'max:255'],
             'date' => ['required', 'date'],
             'observation' => ['nullable'],
-            'value' => ['numeric'],
+            'value' => ['numeric', 'nullable'],
+        ], [
+            'name.required' => 'O nome da aula avulsa é obrigatório.',
+            'name.max' => 'O nome não pode ter mais de 255 caracteres.',
+            'date.required' => 'A data da aula é obrigatória.',
+            'date.date' => 'Informe uma data válida.',
+            'value.numeric' => 'O valor deve ser um número.',
         ]);
 
         $isolatedClass = DB::transaction(function () use ($request) {
@@ -73,6 +79,10 @@ class IsolatedClassController extends Controller
             'date' => ['sometimes', 'date'],
             'observation' => ['nullable'],
             'value' => ['sometimes', 'numeric'],
+        ], [
+            'name.max' => 'O nome não pode ter mais de 255 caracteres.',
+            'date.date' => 'Informe uma data válida.',
+            'value.numeric' => 'O valor deve ser um número.',
         ]);
 
         $isolatedClass = DB::transaction(function () use ($request, $isolatedClass) {
@@ -97,7 +107,7 @@ class IsolatedClassController extends Controller
             return response()->json(['message' => 'Usuário não tem acesso'], Response::HTTP_FORBIDDEN);
         }
 
-        DB::transaction(function ($isolatedClass) {
+        DB::transaction(function () use ($isolatedClass) {
             $isolatedClass->delete();
         });
 

@@ -33,6 +33,14 @@ class GroupLessonController extends Controller
             'date' => ['required', 'date'],
             'start_at' => ['required'],
             'end_at' => ['required', 'after:start_at'],
+        ], [
+            'group_id.required' => 'O grupo é obrigatório.',
+            'group_id.exists' => 'O grupo selecionado não foi encontrado.',
+            'date.required' => 'A data da aula é obrigatória.',
+            'date.date' => 'Informe uma data válida.',
+            'start_at.required' => 'O horário de início é obrigatório.',
+            'end_at.required' => 'O horário de término é obrigatório.',
+            'end_at.after' => 'O horário de término deve ser posterior ao horário de início.',
         ]);
 
         $group = Group::findOrFail($request->group_id);
@@ -66,7 +74,18 @@ class GroupLessonController extends Controller
             'date' => ['required', 'date'],
             'start_at' => ['required'],
             'end_at' => ['required', 'after:start_at'],
-            'occurrences' => ['sometimes', 'integer', 'min:1', 'max:52']
+            'occurrences' => ['sometimes', 'integer', 'min:1', 'max:52'],
+        ], [
+            'group_id.required' => 'O grupo é obrigatório.',
+            'group_id.exists' => 'O grupo selecionado não foi encontrado.',
+            'date.required' => 'A data da aula é obrigatória.',
+            'date.date' => 'Informe uma data válida.',
+            'start_at.required' => 'O horário de início é obrigatório.',
+            'end_at.required' => 'O horário de término é obrigatório.',
+            'end_at.after' => 'O horário de término deve ser posterior ao horário de início.',
+            'occurrences.integer' => 'A quantidade de ocorrências deve ser um número inteiro.',
+            'occurrences.min' => 'A quantidade de ocorrências deve ser de pelo menos 1.',
+            'occurrences.max' => 'A quantidade de ocorrências não pode ser maior que 52.',
         ]);
 
         $group = Group::findOrFail($request->group_id);

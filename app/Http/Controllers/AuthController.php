@@ -19,6 +19,10 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+        ], [
+            'email.required' => 'O campo e-mail é obrigatório.',
+            'email.email' => 'Informe um endereço de e-mail válido.',
+            'password.required' => 'O campo senha é obrigatório.',
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -30,7 +34,7 @@ class AuthController extends Controller
         if (!$user->email_verified_at) {
             return response()->json([
                 'message' => 'Conta ainda não verificada',
-                'email_not_verified' => true, // 👈 flag pro front redirecionar
+                'email_not_verified' => true,
                 'email' => $user->email,
             ], 403);
         }

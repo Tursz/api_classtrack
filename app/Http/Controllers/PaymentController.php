@@ -50,6 +50,8 @@ class PaymentController extends Controller
     {
         $request->validate([
             'month' => ['nullable', 'date_format:Y-m'],
+        ], [
+            'month.date_format' => 'O mês deve estar no formato AAAA-MM (ex: 2026-05).',
         ]);
 
         $learners = $this->buildPaymentsQuery($request)->get();
@@ -91,6 +93,17 @@ class PaymentController extends Controller
             'payment_method' => ['required', 'string'],
             'date' => ['required', 'date'],
             'status' => ['required', 'in:pending,concluded'],
+        ], [
+            'learner_id.required' => 'O aluno é obrigatório.',
+            'learner_id.exists' => 'O aluno selecionado não foi encontrado.',
+            'value.required' => 'O valor é obrigatório.',
+            'value.numeric' => 'O valor deve ser um número.',
+            'payment_method.required' => 'A forma de pagamento é obrigatória.',
+            'payment_method.string' => 'A forma de pagamento deve ser um texto.',
+            'date.required' => 'A data é obrigatória.',
+            'date.date' => 'Informe uma data válida.',
+            'status.required' => 'O status do pagamento é obrigatório.',
+            'status.in' => 'O status deve ser "pending" (pendente) ou "concluded" (concluído).',
         ]);
 
         $learner = \App\Models\Learner::findOrFail($request->learner_id);
@@ -103,7 +116,7 @@ class PaymentController extends Controller
             'method' => $request->payment_method,
             'date' => $request->date,
             'status' => $request->status,
-            'value' => $request->value, // 👈 adicionado
+            'value' => $request->value,
         ]);
 
         return response()->json(['message' => 'Pagamento realizado com sucesso', 'data' => $payment], Response::HTTP_CREATED);

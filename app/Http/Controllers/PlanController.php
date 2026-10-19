@@ -32,6 +32,11 @@ class PlanController extends Controller
             'title' => ['required', 'max:255'],
             'description' => ['sometimes'],
             'value' => ['required', 'numeric'],
+        ], [
+            'title.required' => 'O título do plano é obrigatório.',
+            'title.max' => 'O título não pode ter mais de 255 caracteres.',
+            'value.required' => 'O valor do plano é obrigatório.',
+            'value.numeric' => 'O valor do plano deve ser um número.',
         ]);
 
         $plan = Plan::create([
@@ -65,6 +70,11 @@ class PlanController extends Controller
             'title' => ['required', 'max:255'],
             'description' => ['sometimes'],
             'value' => ['required', 'numeric'],
+        ], [
+            'title.required' => 'O título do plano é obrigatório.',
+            'title.max' => 'O título não pode ter mais de 255 caracteres.',
+            'value.required' => 'O valor do plano é obrigatório.',
+            'value.numeric' => 'O valor do plano deve ser um número.',
         ]);
 
         if (!$request->user()->id == $plan->user_id) {

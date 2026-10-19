@@ -30,6 +30,12 @@ class LearnerController extends Controller
             'email' => ['nullable', 'max:255', 'email'],
             'contact' => ['nullable', 'max:22'],
             'observation' => ['nullable'],
+        ], [
+            'name.required' => 'O campo nome é obrigatório.',
+            'name.max' => 'O nome não pode ter mais de 255 caracteres.',
+            'email.email' => 'Informe um endereço de e-mail válido.',
+            'email.max' => 'O e-mail não pode ter mais de 255 caracteres.',
+            'contact.max' => 'O contato não pode ter mais de 22 caracteres.',
         ]);
 
         $leaner = Learner::create([
@@ -65,6 +71,12 @@ class LearnerController extends Controller
             'email' => ['nullable', 'max:255', 'email'],
             'contact' => ['nullable', 'max:22'],
             'observation' => ['nullable'],
+        ], [
+            'name.required' => 'O campo nome é obrigatório.',
+            'name.max' => 'O nome não pode ter mais de 255 caracteres.',
+            'email.email' => 'Informe um endereço de e-mail válido.',
+            'email.max' => 'O e-mail não pode ter mais de 255 caracteres.',
+            'contact.max' => 'O contato não pode ter mais de 22 caracteres.',
         ]);
 
         $user = $request->user();

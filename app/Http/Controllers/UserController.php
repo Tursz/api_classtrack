@@ -33,6 +33,15 @@ class UserController extends Controller
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:8', 'confirmed'],
+        ], [
+            'name.required' => 'O campo nome é obrigatório.',
+            'name.max' => 'O campo nome não pode ter mais de 255 caracteres.',
+            'email.required' => 'O campo e-mail é obrigatório.',
+            'email.email' => 'Informe um endereço de e-mail válido.',
+            'email.unique' => 'Este e-mail já está cadastrado.',
+            'password.required' => 'O campo senha é obrigatório.',
+            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+            'password.confirmed' => 'A confirmação da senha não confere.',
         ]);
 
         $pinCode = str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
@@ -58,6 +67,11 @@ class UserController extends Controller
         $request->validate([
             'email' => ['required', 'email'],
             'pin_code' => ['required', 'digits:6'],
+        ], [
+            'email.required' => 'O campo e-mail é obrigatório.',
+            'email.email' => 'Informe um endereço de e-mail válido.',
+            'pin_code.required' => 'O código PIN é obrigatório.',
+            'pin_code.digits' => 'O código PIN deve conter exatamente 6 dígitos.',
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -97,6 +111,9 @@ class UserController extends Controller
     {
         $request->validate([
             'email' => ['required', 'email'],
+        ], [
+            'email.required' => 'O campo e-mail é obrigatório.',
+            'email.email' => 'Informe um endereço de e-mail válido.',
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -134,10 +151,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user): JsonResponse
     {
-        $request->validate = [
+        $request->validate([
             'name' => ['required'],
             'email' => ['email'],
-        ];
+        ], [
+            'name.required' => 'O campo nome é obrigatório.',
+            'email.email' => 'Informe um endereço de e-mail válido.',
+        ]);
 
         $user->update([
             'name' => $request->name,

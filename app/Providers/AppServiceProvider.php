@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (in_array(strtolower(app()->getLocale()), ['pt_br', 'pt-br', 'pt'])) {
+            app()->setLocale('pt_BR');
+        }
     }
 }

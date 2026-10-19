@@ -32,6 +32,12 @@ class GroupController extends Controller
             'description' => ['required'],
             'learner_ids' => ['sometimes', 'array'],
             'learner_ids.*' => ['exists:learners,id'],
+        ], [
+            'title.required' => 'O título do grupo é obrigatório.',
+            'title.max' => 'O título não pode ter mais de 255 caracteres.',
+            'description.required' => 'A descrição do grupo é obrigatória.',
+            'learner_ids.array' => 'A lista de alunos deve ser um array.',
+            'learner_ids.*.exists' => 'Um ou mais alunos selecionados não foram encontrados.',
         ]);
 
         $group = Group::create([
@@ -74,6 +80,12 @@ class GroupController extends Controller
             'description' => ['required'],
             'learner_ids' => ['sometimes', 'array'],
             'learner_ids.*' => ['exists:learners,id'],
+        ], [
+            'title.required' => 'O título do grupo é obrigatório.',
+            'title.max' => 'O título não pode ter mais de 255 caracteres.',
+            'description.required' => 'A descrição do grupo é obrigatória.',
+            'learner_ids.array' => 'A lista de alunos deve ser um array.',
+            'learner_ids.*.exists' => 'Um ou mais alunos selecionados não foram encontrados.',
         ]);
 
         $group->update([
@@ -102,7 +114,7 @@ class GroupController extends Controller
             return response()->json(['message' => 'Ação não autorizada'], Response::HTTP_UNAUTHORIZED);
         }
 
-        $group->delete(); // as classrooms permanecem órfãs — considere cascade delete na migration, ou apagar manualmente aqui
+        $group->delete();
 
         return response()->json(['message' => 'Grupo excluído com sucesso'], Response::HTTP_OK);
     }
